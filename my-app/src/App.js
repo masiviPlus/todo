@@ -15,16 +15,13 @@ function App() {
   const [activeCard, setActiveCard] = useState(null);
 
   const addNewTask = (newTask) => {
-    // Determine the index for the new task within its status.
     const statusTasks = tasks.filter(
       (task) => task.status_now === newTask.status_now
     );
     const newIndex = statusTasks.length;
 
-    // Assign the new index to the new task.
     const indexedNewTask = { ...newTask, index: newIndex };
 
-    // Add the new task to the list and update the state.
     setTasks((prevTasks) => [...prevTasks, indexedNewTask]);
   };
 
@@ -47,7 +44,6 @@ function App() {
     const updatedTasks = tasks
       .filter((task) => task.task_id !== activeCard)
       .map((task) => {
-        // Adjust the indices of tasks within the same column if necessary
         if (task.status_now === status && task.index >= index) {
           return { ...task, index: task.index + 1 };
         }
@@ -58,7 +54,7 @@ function App() {
     updatedTasks.push(updatedTask);
 
     setTasks(updatedTasks);
-    setActiveCard(null); // Reset the activeCard after the drop
+    setActiveCard(null);
 
     try {
       await axios.put(`http://localhost:5000/tasks/${activeCard}/status`, {
