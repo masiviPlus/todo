@@ -15,16 +15,13 @@ function App() {
   const [activeCard, setActiveCard] = useState(null);
 
   const addNewTask = (newTask) => {
-    // Determine the index for the new task within its status.
     const statusTasks = tasks.filter(
       (task) => task.status_now === newTask.status_now
     );
     const newIndex = statusTasks.length;
 
-    // Assign the new index to the new task.
     const indexedNewTask = { ...newTask, index: newIndex };
 
-    // Add the new task to the list and update the state.
     setTasks((prevTasks) => [...prevTasks, indexedNewTask]);
   };
 
@@ -36,29 +33,24 @@ function App() {
     console.log(activeCard);
     if (activeCard == null) return;
 
-    // Find the task by task_id
     const taskToMove = tasks.find((task) => task.task_id === activeCard);
     if (!taskToMove) return;
 
-    // Update the task's status and its new index
     const updatedTask = { ...taskToMove, status_now: status, index };
 
-    // Filter out the moved task from the original list
     const updatedTasks = tasks
       .filter((task) => task.task_id !== activeCard)
       .map((task) => {
-        // Adjust the indices of tasks within the same column if necessary
         if (task.status_now === status && task.index >= index) {
           return { ...task, index: task.index + 1 };
         }
         return task;
       });
 
-    // Insert the updated task at the new position
     updatedTasks.push(updatedTask);
 
     setTasks(updatedTasks);
-    setActiveCard(null); // Reset the activeCard after the drop
+    setActiveCard(null);
 
     try {
       await axios.put(`http://localhost:5000/tasks/${activeCard}/status`, {
@@ -75,10 +67,9 @@ function App() {
     axios
       .get("http://localhost:5000/api/tasks")
       .then((response) => {
-        // Map through tasks and assign index based on their position in the column.
         const indexedTasks = response.data.map((task, index) => ({
           ...task,
-          index, // Initial index can be based on the order in which they are fetched.
+          index,
         }));
         console.log(indexedTasks);
         setTasks(indexedTasks);
