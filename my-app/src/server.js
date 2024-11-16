@@ -3,12 +3,44 @@ const express = require("express");
 const cors = require("cors");
 const mysql = require("mysql2");
 const app = express();
+const Sequelize = require("sequelize");
+const { sequelize } = require("./index.model.js");
 
 const PORT = process.env.PORT || 5000;
 console.log("DB_USER:", process.env.DB_USER); // This should output 'nika'
 console.log("DB_PASSWORD:", process.env.DB_PASSWORD); // This should output 'password'
 app.use(cors());
 app.use(express.json());
+
+(async () => {
+  try {
+    // Authenticate database connection
+    await sequelize.authenticate();
+    console.log("Database connection has been established successfully.");
+
+    // Sync database schema
+    await sequelize.sync({ force: false }); // Change `force` to `true` for development/testing
+    console.log("Database schema has been synchronized successfully.");
+
+    // Start the server
+    app.listen(PORT, () => {
+      console.log(`Server is running on http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error("Unable to connect to the database:", error);
+  }
+})();
+
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log("Connection has been established successfully.");
+  })
+  .catch((e) => {
+    console.error("Unable to connect to the database: ", e);
+  });
+
+//THE OLD WAY OF CONNECTING WITHOUT SEQUELIZE
 
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -17,14 +49,15 @@ const db = mysql.createConnection({
   database: process.env.DB_NAME,
 });
 
-db.connect((err) => {
-  if (err) {
-    console.error("Error connecting to the database:", err);
-    return;
-  }
-  console.log("Connected to the MySQL database.");
-});
+// db.connect((err) => {
+//   if (err) {
+//     console.error("Error connecting to the database:", err);
+//     return;
+//   }
+//   console.log("Connected to the MySQL database.");
+// });
 
+//////////////////////////////////////////////////////////////////////////////////////////////////
 app.get("/api/tasks", (req, res) => {
   const query = `
     SELECT 
@@ -138,6 +171,6 @@ app.put("/tasks/:id/status", (req, res) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`Server is running on http://localhost:${PORT}`);
+// });

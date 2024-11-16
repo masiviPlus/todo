@@ -34,3 +34,11 @@ SELECT * FROM tasks;
 SHOW COLUMNS FROM tasks LIKE 'status';
 --@block
 SHOW COLUMNS FROM tasks LIKE 'status';
+
+--@block
+DROP Table tasks;
+--@block
+DROP Table tags;
+
+--@block
+DROP TABLE SequelizeMeta;
