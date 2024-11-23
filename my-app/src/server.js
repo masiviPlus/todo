@@ -13,13 +13,12 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// Initialize and sync Sequelize
 (async () => {
   try {
     await sequelize.authenticate();
     console.log("Database connection established successfully.");
 
-    await sequelize.sync({ force: false }); // Change to `true` if you need to reset tables during dev
+    await sequelize.sync({ force: false });
     console.log("Database schema synchronized.");
 
     app.listen(PORT, () => {
@@ -37,7 +36,7 @@ app.get("/api/tasks", async (req, res) => {
       include: {
         model: Tag,
         attributes: ["tag"],
-        through: { attributes: [] }, // Exclude join table attributes
+        through: { attributes: [] },
       },
     });
 
