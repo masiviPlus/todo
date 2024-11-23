@@ -35,6 +35,7 @@ export function Btn({ addNewTask }) {
         },
         body: JSON.stringify(taskData),
       });
+      console.log(response);
       if (response.ok) {
         const newTask = await response.json();
         console.log("task saved successfully!");

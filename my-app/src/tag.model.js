@@ -5,5 +5,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
   });
+
+  Tag.associate = (models) => {
+    Tag.belongsToMany(models.Task, { through: "tasks_tabs" });
+  };
+
   return Tag;
 };

@@ -39,6 +39,34 @@ SHOW COLUMNS FROM tasks LIKE 'status';
 DROP Table tasks;
 --@block
 DROP Table tags;
+--@block
+DROP Table tasks_tags;
+--@block
+DROP Table tasks_tabs;
 
 --@block
 DROP TABLE SequelizeMeta;
+
+-- @block
+
+SELECT 
+    t.id AS id,
+    t.title AS title,
+    t.deadline AS deadline,
+    t.story_points AS story_points,
+    t.status AS status,
+    t.bio AS bio,
+    GROUP_CONCAT(tag.tag SEPARATOR ', ') AS tags
+FROM 
+    tasks t
+LEFT JOIN 
+    tasks_tabs tt ON t.id = tt.TaskId  -- Link tasks to tasks_tabs using TaskId
+LEFT JOIN 
+    tags tag ON tt.TagId = tag.id      -- Link tags to tasks_tabs using TagId
+GROUP BY 
+    t.id;
+
+
+-- @block
+
+SELECT * FROM tags

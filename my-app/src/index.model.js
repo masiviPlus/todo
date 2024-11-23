@@ -1,5 +1,6 @@
-require("dotenv").config();
+
 const { Sequelize, DataTypes } = require("sequelize");
+require("dotenv").config(); 
 
 const sequelize = new Sequelize(
   process.env.DB_NAME,
@@ -11,25 +12,15 @@ const sequelize = new Sequelize(
   }
 );
 
-// Import models
-const Task = require("./task.model")(sequelize, DataTypes);
-const Tag = require("./tag.model")(sequelize, DataTypes);
+const Task = require("./task.model.js")(sequelize, DataTypes);
+const Tag = require("./tag.model.js")(sequelize, DataTypes);
 
-// Define relationships
-Task.belongsToMany(Tag, { through: "tasks_tags", foreignKey: "task_id" });
-Tag.belongsToMany(Task, { through: "tasks_tags", foreignKey: "tag_id" });
+const models = { Task, Tag };
 
-// Authenticate and sync
-// (async () => {
-//   try {
-//     await sequelize.authenticate();
-//     console.log("Connection has been established successfully.");
+Object.values(models).forEach((model) => {
+  if (model.associate) {
+    model.associate(models); 
+  }
+});
 
-//     await sequelize.sync({ force: false }); // Use 'force: true' only for development/testing
-//     console.log("Database synced successfully.");
-//   } catch (error) {
-//     console.error("Unable to connect or sync to the database:", error);
-//   }
-// })();
-
-module.exports = { sequelize, Task, Tag };
+module.exports = { sequelize, ...models };

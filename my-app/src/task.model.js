@@ -7,15 +7,24 @@ module.exports = (sequelize, DataTypes) => {
     deadline: DataTypes.DATE,
     story_points: DataTypes.INTEGER,
     bio: DataTypes.TEXT,
-    status: DataTypes.ENUM(
-      "TODO",
-      "In Progress",
-      "Ready For QA",
-      "In Testing",
-      "Reviewed",
-      "DONE",
-      "Archived"
-    ),
+    status: {
+      type: DataTypes.ENUM(
+        "TODO",
+        "In Progress",
+        "Ready For QA",
+        "In Testing",
+        "Reviewed",
+        "DONE",
+        "Archived"
+      ),
+      allowNull: false,
+      defaultValue: "TODO",
+    },
   });
+
+  Task.associate = (models) => {
+    Task.belongsToMany(models.Tag, { through: "tasks_tabs" });
+  };
+
   return Task;
 };
