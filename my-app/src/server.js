@@ -2,11 +2,11 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const app = express();
+const addService = require("./Services/add.service");
+const updateService = require("./Services/update.service");
+const getService = require("./Services/get.service");
 
-// const { sequelize } = require("./index.model.js");
-// const { Task } = require("./task.model.js");
-// const { Tag } = require("./tag.model.js");
-const { sequelize, Task, Tag } = require("./index.model.js");
+const { sequelize, Task, Tag } = require("./models/index.model");
 
 const PORT = process.env.PORT || 5000;
 
@@ -30,74 +30,6 @@ app.use(express.json());
 })();
 
 // API endpoints
-app.get("/api/tasks", async (req, res) => {
-  try {
-    const tasks = await Task.findAll({
-      include: {
-        model: Tag,
-        attributes: ["tag"],
-        through: { attributes: [] },
-      },
-    });
-
-    const result = tasks.map((task) => ({
-      task_id: task.id,
-      task_title: task.title,
-      task_date: task.deadline,
-      task_story_points: task.story_points,
-      status_now: task.status,
-      task_description: task.bio,
-      tags: task.Tags.map((tag) => tag.tag).join(", "),
-    }));
-
-    res.status(200).json(result);
-  } catch (error) {
-    console.error("Error fetching tasks:", error);
-    res.status(500).json({ error: "Database query error" });
-  }
-});
-
-app.post("/api/tasks", async (req, res) => {
-  const { title, date, storyPoints, description, tags } = req.body;
-  console.log(title, date, storyPoints, description, tags);
-  try {
-    const newTask = await Task.create({
-      title,
-      deadline: date,
-      story_points: storyPoints,
-      bio: description,
-    });
-
-    const tagInstances = await Promise.all(
-      tags.map((tag) =>
-        Tag.findOrCreate({
-          where: { tag },
-        })
-      )
-    );
-
-    await newTask.addTags(tagInstances.map(([tagInstance]) => tagInstance));
-    res.status(200).json({ message: "Task saved successfully!" });
-  } catch (error) {
-    console.error("Error saving task:", error);
-    res.status(500).json({ error: "Error saving task" });
-  }
-});
-
-app.put("/tasks/:id/status", async (req, res) => {
-  const { id } = req.params;
-  const { status_now } = req.body;
-
-  try {
-    await Task.update(
-      { status: status_now },
-      {
-        where: { id },
-      }
-    );
-    res.sendStatus(200);
-  } catch (error) {
-    console.error("Error updating task status:", error);
-    res.status(500).json({ error: "Error updating task status" });
-  }
-});
+app.get("/api/tasks", getService.getTask);
+app.post("/api/tasks", addService.addTask);
+app.put("/tasks/:id/status", updateService.updateTask);

@@ -1,6 +1,5 @@
-
 const { Sequelize, DataTypes } = require("sequelize");
-require("dotenv").config(); 
+require("dotenv").config();
 
 const sequelize = new Sequelize(
   process.env.DB_NAME,
@@ -19,7 +18,7 @@ const models = { Task, Tag };
 
 Object.values(models).forEach((model) => {
   if (model.associate) {
-    model.associate(models); 
+    model.associate(models);
   }
 });
 
