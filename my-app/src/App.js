@@ -176,7 +176,7 @@ function App() {
         <div className="drag-n-drop">
           {data.map((grp, grpI) => (
             <div className="dnd-group" key={grp.title}>
-              <h1>{grp.title}</h1>
+              <h1 className="group-name">{grp.title}</h1>
               <DropArea
                 status={grp.title}
                 index={0}

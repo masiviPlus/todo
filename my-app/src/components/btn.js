@@ -84,7 +84,7 @@ export function Btn({ addNewTask }) {
   return (
     <div id="btn-and-fillin">
       <button id="add-btn" onClick={handleClick}>
-        ADD TASK
+        <b>ADD TASK</b>
       </button>
       {showFields && (
         <div id="new-task-inputs" ref={fieldsRef}>
