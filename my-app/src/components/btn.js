@@ -18,6 +18,7 @@ export function Btn({ addNewTask }) {
   const handleClick = () => {
     setShowFields(!showFields);
   };
+
   const saveButtonClick = async () => {
     const taskData = {
       title,
@@ -27,6 +28,7 @@ export function Btn({ addNewTask }) {
       status_now: "TODO",
       tags: selectedTags.map((tag) => tag.value),
     };
+
     try {
       const response = await fetch("http://localhost:5000/api/tasks", {
         method: "POST",

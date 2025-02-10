@@ -44,14 +44,16 @@ header {
 }
 #new-task-inputs {
   display: flex;
+  border: 6px ridge black;
+
   flex-direction: column;
   margin-top: 15px;
   padding: 20px 15px 20px 15px;
   gap: 15px;
   justify-content: center;
   align-items: center;
-  border-radius: 20px;
-  background-color: rgb(230, 230, 230);
+  /* border-radius: 20px; */
+  background-color: rgb(2, 175, 175);
   width: 300px;
   position: absolute;
   transform: translate(-205px, 30px);
@@ -127,6 +129,7 @@ header {
 .in-modal-style {
   display: flex;
   flex-direction: column;
+  /* background-color: white; */
   /* gap: 15px; */
 }
 .close-btn {
