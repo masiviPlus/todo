@@ -81,19 +81,19 @@ function App() {
 
   const customStyles = {
     content: {
-      backgroundColor: "#1a1a1a",
-      color: "#e0e0e0",
-      borderRadius: "10px",
+      backgroundColor: "rgb(212, 212, 171)",
+      color: "black",
+      borderRadius: "0",
       padding: "50px",
       height: "400px",
-      border: "1px solid #333",
+      border: "ridge 4px #111",
       boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
       minWidth: "300px",
       maxWidth: "500px",
       margin: "auto",
-      top: "50%",
-      left: "50%",
-      transform: "translate(-50%, -50%)",
+      // top: "50%",
+      // left: "50%",
+      // transform: "translate(-50%, -50%)",
     },
     overlay: {
       backgroundColor: "rgba(0, 0, 0, 0.75)",

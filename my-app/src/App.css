@@ -129,6 +129,7 @@ header {
 .in-modal-style {
   display: flex;
   flex-direction: column;
+  gap: 20px;
   /* background-color: white; */
   /* gap: 15px; */
 }
