@@ -45,7 +45,7 @@ header {
 #new-task-inputs {
   display: flex;
   border: 6px ridge black;
-
+  z-index: 1000;
   flex-direction: column;
   margin-top: 15px;
   padding: 20px 15px 20px 15px;
@@ -79,7 +79,7 @@ header {
   /* display: flex;
   flex-direction: column;
   gap: 5px; */
-
+  position: relative;
   width: 200px;
   height: 150px;
   padding: 5px 10px;
@@ -162,6 +162,7 @@ h2 {
   background-color: rgb(56, 56, 80);
   width: max-content;
   padding: 5px 20px;
+  margin-bottom: 5px;
   color: #e0e0e0;
 }
 
@@ -211,4 +212,54 @@ main {
 }
 .hide_drop {
   opacity: 0;
+}
+.items-center {
+  display: block;
+}
+.drop-down-relative-to-task {
+  position: absolute;
+  right: 4px;
+  top: 0;
+}
+.dropdown {
+  position: relative;
+}
+.dropdown * {
+  box-sizing: border-box;
+}
+.select {
+  padding: 0;
+  margin: 0;
+  width: fit-content;
+  padding: 5px;
+}
+.select:hover {
+  background-color: rgb(241, 241, 189);
+  border-radius: 15px;
+
+  cursor: pointer;
+}
+
+.priorities {
+  list-style: none;
+  opacity: 0;
+  position: absolute;
+  right: 2px;
+  display: none;
+}
+
+.priorities li {
+  margin-top: 3px;
+  cursor: pointer;
+}
+.priorities li:hover {
+  background-color: rgb(241, 241, 189);
+  padding: 5px;
+  border-radius: 15px;
+}
+.open {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 1;
 }

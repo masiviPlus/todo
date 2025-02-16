@@ -86,7 +86,7 @@ function App() {
       borderRadius: "0",
       padding: "50px",
       height: "400px",
-      border: "ridge 4px #111",
+      border: "ridge 8px #111",
       boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
       minWidth: "300px",
       maxWidth: "500px",
@@ -241,7 +241,7 @@ function App() {
             </div>
           )}
         </Modal>
-        <h1>active card - {activeCard}</h1>
+        {/* <h1>active card - {activeCard}</h1> */}
       </main>
     </div>
   );

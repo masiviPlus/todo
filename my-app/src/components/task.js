@@ -1,12 +1,43 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function Task(props) {
   const [priority, setPriority] = useState("");
+  const dropdownRef = useRef(null);
 
   const priorityEmojis = {
     High: "🚨",
     Medium: "🟠",
     Low: "😎",
+  };
+
+  useEffect(() => {
+    const dropdown = dropdownRef.current;
+    if (!dropdown) return;
+
+    const select = dropdown.querySelector(".select");
+    const priorities = dropdown.querySelector(".priorities");
+
+    const toggleDropdown = () => {
+      priorities.classList.toggle("open");
+    };
+
+    select.addEventListener("click", toggleDropdown);
+
+    return () => {
+      select.removeEventListener("click", toggleDropdown);
+    };
+  }, []);
+
+  const handleSelectPriority = (key, e) => {
+    setPriority(key);
+    e.stopPropagation();
+
+    // Close dropdown after selection
+    const dropdown = dropdownRef.current;
+    if (dropdown) {
+      const priorities = dropdown.querySelector(".priorities");
+      priorities.classList.remove("open");
+    }
   };
 
   return (
@@ -30,25 +61,23 @@ export function Task(props) {
         <b>Deadline: {new Date(props.task_date).toLocaleDateString()}</b>
       </p>
 
-      <div className="flex flex-col items-center p-4">
-        <label className="mb-2 text-lg font-semibold">Select Priority:</label>
-        <select
-          className="border p-2 rounded-md"
-          value={priority}
-          onChange={(e) => setPriority(e.target.value)}
-          onClick={(e) => e.stopPropagation()}
-        >
-          <option value="">-- Choose Priority --</option>
-          <option value="High">High Priority</option>
-          <option value="Medium">Medium Priority</option>
-          <option value="Low">Low Priority</option>
-        </select>
-
-        {priority && (
-          <div className="mt-4 text-xl">
-            Selected Priority: {priorityEmojis[priority]} ({priority})
+      <div className="drop-down-relative-to-task">
+        <div className="dropdown" ref={dropdownRef}>
+          <div className="select" onClick={(e) => e.stopPropagation()}>
+            <span>{priority ? priorityEmojis[priority] : "❓"}</span>
           </div>
-        )}
+          <ul className="priorities">
+            {Object.keys(priorityEmojis).map((key) => (
+              <li
+                key={key}
+                className={priority === key ? "active" : ""}
+                onClick={(e) => handleSelectPriority(key, e)}
+              >
+                {priorityEmojis[key]}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );
