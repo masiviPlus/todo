@@ -1,7 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 export function Task(props) {
-  const [priority, setPriority] = useState("");
   const dropdownRef = useRef(null);
 
   const priorityEmojis = {
@@ -28,11 +27,13 @@ export function Task(props) {
     };
   }, []);
 
-  const handleSelectPriority = (key, e) => {
-    setPriority(key);
+  const handleSelectPriority = async (key, e) => {
     e.stopPropagation();
 
-    // Close dropdown after selection
+    if (props.onPriorityChange) {
+      props.onPriorityChange(props.task_id, key);
+    }
+
     const dropdown = dropdownRef.current;
     if (dropdown) {
       const priorities = dropdown.querySelector(".priorities");
@@ -64,13 +65,15 @@ export function Task(props) {
       <div className="drop-down-relative-to-task">
         <div className="dropdown" ref={dropdownRef}>
           <div className="select" onClick={(e) => e.stopPropagation()}>
-            <span>{priority ? priorityEmojis[priority] : "❓"}</span>
+            <span>
+              {props.priority ? priorityEmojis[props.priority] : "❓"}
+            </span>
           </div>
           <ul className="priorities">
             {Object.keys(priorityEmojis).map((key) => (
               <li
                 key={key}
-                className={priority === key ? "active" : ""}
+                className={props.priority === key ? "active" : ""}
                 onClick={(e) => handleSelectPriority(key, e)}
               >
                 {priorityEmojis[key]}

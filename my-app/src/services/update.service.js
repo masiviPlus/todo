@@ -3,19 +3,19 @@ const { Task, Tag } = require("../models/index.model");
 class UpdateService {
   static async updateTask(req, res) {
     const { id } = req.params;
-    const { status_now } = req.body;
+    const { status_now, priority } = req.body;
 
     try {
-      await Task.update(
-        { status: status_now },
-        {
-          where: { id },
-        }
-      );
+      const updateFields = {};
+      if (status_now) updateFields.status = status_now;
+      if (priority) updateFields.priority = priority;
+
+      await Task.update(updateFields, { where: { id } });
+
       res.sendStatus(200);
     } catch (error) {
-      console.error("Error updating task status:", error);
-      res.status(500).json({ error: "Error updating task status" });
+      console.error("Error updating task:", error);
+      res.status(500).json({ error: "Error updating task" });
     }
   }
 }

@@ -33,3 +33,4 @@ app.use(express.json());
 app.get("/api/tasks", getService.getTask);
 app.post("/api/tasks", addService.addTask);
 app.put("/tasks/:id/status", updateService.updateTask);
+app.put("/tasks/:id/priority", updateService.updateTask);

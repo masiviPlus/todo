@@ -25,6 +25,22 @@ function App() {
     setTasks((prevTasks) => [...prevTasks, indexedNewTask]);
   };
 
+  const handlePriorityChange = async (taskId, newPriority) => {
+    try {
+      await axios.put(`http://localhost:5000/tasks/${taskId}/priority`, {
+        priority: newPriority, 
+      });
+
+      setTasks((prevTasks) =>
+        prevTasks.map((task) =>
+          task.task_id === taskId ? { ...task, priority: newPriority } : task
+        )
+      );
+    } catch (error) {
+      console.error("Error updating priority:", error);
+    }
+  };
+
   const onDrop = async (status, index) => {
     console.log(
       `${activeCard} is going to be placed into ${status} at the position ${index}`
@@ -194,8 +210,10 @@ function App() {
                     task_story_points={task.task_story_points}
                     task_description={task.task_description}
                     tags={task.tags}
+                    priority={task.priority}
                     status_now={task.status_now}
                     setActiveCard={setActiveCard}
+                    onPriorityChange={handlePriorityChange}
                   />
                   <DropArea
                     status={grp.title}

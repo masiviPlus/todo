@@ -70,3 +70,10 @@ GROUP BY
 -- @block
 
 SELECT * FROM tags
+
+-- @block
+SHOW COLUMNS FROM Tasks
+-- @block
+SELECT * FROM SequelizeMeta;
+-- @block
+DELETE FROM SequelizeMeta WHERE name = '20250223141543-add-priority-to-task.js';

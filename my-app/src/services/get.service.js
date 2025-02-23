@@ -18,6 +18,7 @@ class GetService {
         task_story_points: task.story_points,
         status_now: task.status,
         task_description: task.bio,
+        priority: task.priority,
         tags: task.Tags.map((tag) => tag.tag).join(", "),
       }));
 

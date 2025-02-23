@@ -20,6 +20,9 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: "TODO",
     },
+    priority: {
+      type: DataTypes.ENUM("Low", "Medium", "High"),
+    },
   });
 
   Task.associate = (models) => {
