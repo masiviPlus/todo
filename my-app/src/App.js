@@ -28,7 +28,7 @@ function App() {
   const handlePriorityChange = async (taskId, newPriority) => {
     try {
       await axios.put(`http://localhost:5000/tasks/${taskId}/priority`, {
-        priority: newPriority, 
+        priority: newPriority,
       });
 
       setTasks((prevTasks) =>

@@ -54,7 +54,7 @@ export function Task(props) {
       <div
         className="description text"
         dangerouslySetInnerHTML={{
-          __html: `${props.task_description.slice(0, 20)}<b>...see more</b>`,
+          __html: `${props.task_description.slice(0, 10)}<b>...see more</b>`,
         }}
       ></div>
 
