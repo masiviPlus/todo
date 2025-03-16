@@ -149,14 +149,12 @@ header {
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 200px;
-  text-wrap: wrap;
-  word-break: break-word; /* Prevents long words from overflowing */
-}
-.description *{
-  text-wrap: wrap;
   width: 500px;
+  text-wrap: wrap;
+  /* word-break: break-word;  */
+  
 }
+
 .dnd-item > * {
   color: rgb(65, 65, 65);
 }

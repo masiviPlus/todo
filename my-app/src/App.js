@@ -103,7 +103,7 @@ function App() {
       padding: "50px",
       height: "auto", // Let the height adjust based on the content
       maxHeight: "85vh", // Restrict the maximum height to 85% of the viewport height
-      overflowY: "hidden", // Enable scrolling if content exceeds maxHeight
+      overflowY: "auto", // Enable scrolling if content exceeds maxHeight
       border: "ridge 8px #111",
       boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
       minWidth: "300px",
@@ -124,7 +124,6 @@ function App() {
     },
   };
 
-  
 
   const difficultyStars = (count) => {
     const star = "★"
