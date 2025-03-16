@@ -49,7 +49,7 @@ export function Task(props) {
       onDragEnd={() => props.setActiveCard(null)}
       onClick={() => props.onClick()}
     >
-      <h2 className="text">{props.task_title}</h2>
+      <h2 className="text task-name">{props.task_title}</h2>
 
       <div
         className="description text"

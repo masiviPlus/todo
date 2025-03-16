@@ -101,15 +101,22 @@ function App() {
       color: "black",
       borderRadius: "0",
       padding: "50px",
-      height: "400px",
+      height: "auto", // Let the height adjust based on the content
+      maxHeight: "85vh", // Restrict the maximum height to 85% of the viewport height
+      overflowY: "hidden", // Enable scrolling if content exceeds maxHeight
       border: "ridge 8px #111",
       boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
       minWidth: "300px",
       maxWidth: "500px",
-      margin: "auto",
-      // top: "50%",
-      // left: "50%",
-      // transform: "translate(-50%, -50%)",
+      margin: "auto", // Centers the modal horizontally
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center", // Centers content vertically
+      alignItems: "center", // Centers content horizontally
+      position: "absolute", // Ensure it can be positioned within the viewport
+      top: "50%", // Center vertically
+      left: "50%", // Center horizontally
+      transform: "translate(-50%, -50%)", // Offset the modal to center it
     },
     overlay: {
       backgroundColor: "rgba(0, 0, 0, 0.75)",
@@ -117,15 +124,12 @@ function App() {
     },
   };
 
-  const color = () => {
-    if (Number(selectedTask.task_story_points) < 3) {
-      return { color: "#66BB6A", backgroundColor: "#2E7D32" };
-    } else if (Number(selectedTask.task_story_points) === 3) {
-      return { color: "#FFB74D", backgroundColor: "#EF6C00" };
-    } else {
-      return { color: "#E57373", backgroundColor: "#B71C1C" };
-    }
-  };
+  
+
+  const difficultyStars = (count) => {
+    const star = "★"
+    return star.repeat(count);
+  }
 
   const openModal = (task) => {
     setSelectedTask(task);
@@ -229,33 +233,40 @@ function App() {
           isOpen={isModalOpen}
           style={customStyles}
           onRequestClose={closeModal}
+          className="in-modal-style"
         >
           {selectedTask && (
-            <div className="in-modal-style">
-              <h2 className="title">{selectedTask.task_title}</h2>
-              <div
+            <div >
+              <div className="upper-part">
+               <h2 className="title">{selectedTask.task_title}</h2>
+               <div className="description-element">────────────── Description ──────────────</div>
+               <div
                 className="description"
                 dangerouslySetInnerHTML={{
                   __html: selectedTask.task_description,
                 }}
-              />
-              <h3 style={color()} className="story-point">
-                {selectedTask.task_story_points}
-              </h3>
-              <div>
+               />
+               <h3 className="stars">
+                {difficultyStars(selectedTask.task_story_points)}
+               </h3>
+               <div>
                 {selectedTask.tags?.split(",").map((tag, index) => (
                   <h3 className="tag" key={index}>
                     {tag}{" "}
                   </h3>
                 ))}
-              </div>
-              <p>
+               </div>
+               <p>
                 Deadline:{" "}
                 {selectedTask.task_date.slice(0, 10).replaceAll("-", "/")}
-              </p>
-              <button onClick={closeModal} className="close-btn">
+               </p>
+             </div>
+              <div className="bottom-part">
+               <button onClick={closeModal} className="close-btn">
                 Close
-              </button>
+               </button>
+              </div>
+              
             </div>
           )}
         </Modal>

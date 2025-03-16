@@ -1,11 +1,19 @@
-* {
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+*{
   margin: 0px;
   padding: 0px;
 }
+
+html, body {
+  /* overflow-x: hidden;  */
+}
+
 .App {
   /* text-align: center; */
   background-color: rgb(103, 172, 172);
   height: 100vh;
+  width:max-content
 }
 #add-btn {
   padding: 15px 20px;
@@ -17,6 +25,10 @@
   font-size: 15px;
   position: relative;
   border: ridge 4px #111;
+  font-family: "Press Start 2P", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  
 }
 #add-btn:hover {
   background-color: rgb(54, 54, 54);
@@ -24,7 +36,20 @@
 }
 .group-name {
   margin-top: 15px;
-  color: rgb(65, 65, 65);
+  color: rgb(0, 0, 0);
+  font-family: "Press Start 2P", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 18px;
+}
+
+  
+
+h1{
+  font-family: "Press Start 2P", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 30px;
 }
 header {
   padding: 10px 15px;
@@ -33,6 +58,8 @@ header {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  position: relative;
+  
 }
 #title-input {
   border: none;
@@ -72,9 +99,11 @@ header {
   font-size: 12px;
   position: relative;
 }
+
 #save-btn:hover {
   background-color: rgb(54, 54, 54);
 }
+
 .dnd-item {
   /* display: flex;
   flex-direction: column;
@@ -91,8 +120,22 @@ header {
   margin-bottom: 15px;
   box-shadow: 15px 10px 0px -0px teal;
 }
+.description-element{
+  margin-top: 25px;
+  text-align: center;
+}
+
 .text {
   margin-top: 15px;
+}
+
+.task-name{
+  font-family: "Press Start 2P", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  font-size:12px;
+  line-height: 20px;
+  text-transform: uppercase;
 }
 .dnd-item:hover {
   background-color: rgb(43, 43, 43);
@@ -102,11 +145,17 @@ header {
 }
 .description {
   width: max-content;
+ 
   display: flex;
   flex-direction: row;
   align-items: center;
   width: 200px;
   text-wrap: wrap;
+  word-break: break-word; /* Prevents long words from overflowing */
+}
+.description *{
+  text-wrap: wrap;
+  width: 500px;
 }
 .dnd-item > * {
   color: rgb(65, 65, 65);
@@ -129,9 +178,19 @@ header {
 .in-modal-style {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  justify-content: space-between;
+  margin: "50px 0px 0px 0px",
   /* background-color: white; */
   /* gap: 15px; */
+}
+.upper-part{
+  display:flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+.bottom-part{
+  margin-top:auto;
 }
 .close-btn {
   border: none;
@@ -140,13 +199,27 @@ header {
   font-weight: bold;
   text-transform: uppercase;
   cursor: pointer;
+  width:500px;
+  
+  
+  
 }
 .close-btn:hover {
   background-color: #adadad;
 }
 .title {
   text-transform: uppercase;
+  font-family: "Press Start 2P", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 34px;
   text-align: center;
+}
+.stars{
+  color: red;
+  display: flex;
+  flex-direction: row;
+  gap:5px;
 }
 .story-point {
   background-color: black;
@@ -177,12 +250,13 @@ h2 {
   /* grid-template-columns: repeat(7, 350px); */
 }
 main {
-  height: 100%;
+  height: 100%
+  /* height: calc(100vh - 81px); Adjust for header height */
 }
 .dnd-group {
   /* background-color: #adadad; */
   /* background-color: rgb(255, 255, 153); */
-  min-width: 272.5px;
+  min-width: 270.4px;
   min-height: 700px;
   /* min-height: 100%; */
   background-color: rgb(139, 201, 139);
@@ -262,4 +336,43 @@ main {
   flex-direction: column;
   align-items: center;
   opacity: 1;
+}
+/* Responsive design */
+@media (max-width: 1200px) {
+  .dnd-group {
+    min-width: 220px;
+    max-width: 300px;
+  }
+
+  .dnd-item {
+    max-width: 250px;
+  }
+}
+
+@media (max-width: 768px) {
+  .drag-n-drop {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .dnd-group {
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+  }
+
+  .dnd-item {
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .dnd-item {
+    max-width: 100%;
+  }
+
+  .modal {
+    width: 90%;
+    padding: 30px;
+  }
 }
