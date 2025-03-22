@@ -1,6 +1,7 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
 import { Btn } from "./components/btn.js";
+import { Filter } from "./components/filter.js";
 import axios from "axios";
 import { Task } from "./components/task.js";
 import Modal from "react-modal";
@@ -187,10 +188,12 @@ function App() {
 
   return (
     <div className="App">
+      <Filter className="filter-container"></Filter>
       <header>
         <h1>To-Do App</h1>
         <Btn addNewTask={addNewTask} />
       </header>
+      
       <main>
         <div className="drag-n-drop">
           {data.map((grp, grpI) => (
@@ -228,6 +231,7 @@ function App() {
             </div>
           ))}
         </div>
+        
         <Modal
           isOpen={isModalOpen}
           style={customStyles}
