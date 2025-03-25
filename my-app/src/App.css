@@ -15,7 +15,7 @@ html, body {
   height: 100vh;
   width:max-content;
 }
-.filter-container{
+#filter-btn{
   position: fixed;
   right:35px;
   bottom: 15px;
@@ -29,7 +29,7 @@ html, body {
   align-items: center;
   box-shadow: 0 0 2px 2px teal;
 }
-.filter-container:hover{
+#filter-btn:hover{
   background-color: rgb(233, 234, 235);
   cursor: pointer;
 }
@@ -168,7 +168,7 @@ header {
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 500px;
+  width: 150px;
   text-wrap: wrap;
   /* word-break: break-word;  */
   
@@ -369,6 +369,10 @@ main {
   .dnd-item {
     max-width: 250px;
   }
+
+  body, html {
+    overflow-x: scroll;
+}
 }
 
 @media (max-width: 768px) {
@@ -386,6 +390,10 @@ main {
   .dnd-item {
     max-width: 90%;
   }
+
+  body, html {
+    overflow-x: scroll;
+}
 }
 
 @media (max-width: 480px) {
@@ -397,4 +405,7 @@ main {
     width: 90%;
     padding: 30px;
   }
+  body, html {
+    overflow-x: scroll;
+}
 }
