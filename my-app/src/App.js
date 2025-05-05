@@ -112,7 +112,7 @@ function App() {
       margin: "auto", // Centers the modal horizontally
       display: "flex",
       flexDirection: "column",
-      justifyContent: "center", // Centers content vertically
+      // justifyContent: "center", // Centers content vertically
       alignItems: "center", // Centers content horizontally
       position: "absolute", // Ensure it can be positioned within the viewport
       top: "50%", // Center vertically

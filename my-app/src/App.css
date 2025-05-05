@@ -197,6 +197,74 @@ body, html {
   padding: 0;
   overflow-x: hidden;
 }
+
+.hidden{
+  display: none;
+  opacity: 0;
+}
+#filter-options{
+  position: fixed;
+  right: 35px;
+  bottom: 90px;
+  z-index: 10000000;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(2, 175, 175);
+  border: ridge 4px #111;
+  padding:25px;
+
+}
+input {
+  padding: 8px 12px;
+  border: 2px solid #111;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: border 0.2s ease-in-out;
+}
+#title-input{
+  margin-top: 15px;
+  width: 570px;
+  padding: 5px, 10px;
+  /* background: transparent; */
+}
+input:focus {
+  border-color: teal;
+  box-shadow: 0 0 0 2px rgba(0,128,128,0.2);
+}
+.filter-checkbox{
+  margin-right: 15px;
+}
+#filter-checks{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+  gap: 1rem; /* spacing between columns */
+  padding: 1rem;
+  padding:25px;
+  border-radius: 15px;
+}
+#priority-checks{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 4 equal columns */
+   /* spacing between columns */
+  padding:25px;
+  
+}
+
+#filter{
+  position:relative;
+  /* display: inline-block; */
+  
+    position: fixed;
+    right: 35px;
+    bottom: 15px;
+    z-index: 100000;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  
+}
+
 .in-modal-style {
   display: flex;
   flex-direction: column;
